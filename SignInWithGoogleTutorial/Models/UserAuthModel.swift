@@ -6,6 +6,8 @@ final class UserAuthModel: ObservableObject {
     @Published var givenName: String = ""
     @Published var isLoggedIn: Bool = false
     @Published var errorMessage: String = ""
+    @Published var userEmail: String = ""
+    @Published var profilePicUrl: String = ""
     
     init() {
         check()
@@ -17,6 +19,9 @@ final class UserAuthModel: ObservableObject {
             guard let user = user else { return }
             let givenName = user.profile?.givenName
             self.givenName = givenName ?? ""
+            self.userEmail = user.profile!.email
+            self.profilePicUrl = user.profile!.imageURL(withDimension: 100)!.absoluteString
+            
             self.isLoggedIn = true
         } else {
             self.isLoggedIn = false

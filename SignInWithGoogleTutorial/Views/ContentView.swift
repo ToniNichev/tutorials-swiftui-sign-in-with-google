@@ -10,17 +10,22 @@ import SwiftUI
 struct ContentView: View {
     
     @EnvironmentObject var userAuthModel: UserAuthModel
-    //@State var userAuthModel = UserAuthModel()
     
-    fileprivate func SignInButton() ->Button<Text> {
-        Button(action: {
-            userAuthModel.signIn()
-        }, label: {
-            Text("Sign In")
-        })
+    fileprivate func signInButton() -> some View {
+        HStack {
+            Image("GoogleSignInButton")
+                .resizable()
+                .frame(width: 50, height: 50)
+            
+            Button(action: {
+                userAuthModel.signIn()
+            }, label: {
+                Text("Sign In")
+            })
+        }
     }
     
-    fileprivate func SignOutButton() -> Button<Text> {
+    fileprivate func signOutButton() -> Button<Text> {
         Button(action: {
             userAuthModel.signOut()
         }, label: {
@@ -28,18 +33,19 @@ struct ContentView: View {
         })
     }
     
+    fileprivate func profilePic() -> some View {
+        AsyncImage(url: URL(string: userAuthModel.profilePicUrl))
+            .frame(width: 100,height: 100)
+    }
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-
-
             if userAuthModel.isLoggedIn {
+                profilePic()
                 Text("Hello: \(userAuthModel.givenName)")
-                SignOutButton()
+                signOutButton()
             } else {
-                SignInButton()
+                signInButton()
             }
             
         }
