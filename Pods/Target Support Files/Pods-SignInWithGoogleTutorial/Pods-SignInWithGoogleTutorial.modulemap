@@ -1,0 +1,6 @@
+framework module Pods_SignInWithGoogleTutorial {
+  umbrella header "Pods-SignInWithGoogleTutorial-umbrella.h"
+
+  export *
+  module * { export * }
+}
